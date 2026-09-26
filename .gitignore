@@ -1,0 +1,16 @@
+# Binários e executáveis do Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+math-api
+
+# Relatórios de testes e cobertura
+coverage.out
+*.coverprofile
+
+# Arquivos de ambiente e OS
+.DS_Store
+.idea/
+.vscode/
