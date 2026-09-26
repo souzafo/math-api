@@ -1,5 +1,8 @@
-# Estágio de Build
-FROM golang:alpine AS builder
+# Estágio de Build (Adaptável à plataforma de destino)
+FROM --platform=$BUILDPLATFORM golang:alpine AS builder
+
+ARG TARGETOS
+ARG TARGETARCH
 
 WORKDIR /app
 
@@ -7,9 +10,10 @@ COPY go.mod ./
 RUN go mod download
 
 COPY main.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o math-api main.go
+# Compila estaticamente para o SO e a Arquitetura de destino
+RUN CGO_ENABLED=0 GOOS=\({TARGETOS:-linux} GOARCH=\){TARGETARCH:-amd64} go build -o math-api main.go
 
-# Estágio Final
+# Estágio Final (Imagem minimalista e segura)
 FROM alpine:3.19
 
 RUN apk --no-cache add ca-certificates
