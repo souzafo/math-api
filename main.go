@@ -23,7 +23,7 @@ func setupRouter() *http.ServeMux {
 	mux.HandleFunc("/healthcheck", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"status":"UP"}`))
+		w.Write([]byte(`{"status":"UP","version":"v2"}`))
 	})
 
 	mux.HandleFunc("/api/sum", func(w http.ResponseWriter, r *http.Request) {
