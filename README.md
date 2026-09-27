@@ -19,9 +19,17 @@ go tool cover -func=coverage.out
 ## Build e Deploy Local
 
 1. Gerar a imagem Docker:
+
+- **Build para ambiente local (k3d / Minikube / Kind)**
 ```
 docker build -t math-api:v1 .
 ```
+
+- **Build para ambiente de nuvens públicas (AWS EKS / GCP GKE)**
+```
+docker build --platform linux/amd64 -t math-api:v1 .
+```
+
 2. Importar a imagem para o cluster k3d (se aplicavel):
 ```
 k3d image import math-api:v1 -c math-cluster
